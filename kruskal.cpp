@@ -1,4 +1,15 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int getParent(int set[], int x)
+{
+    if(set[x] == x) return x;
+    return set[x] = getParent(set, set[x]);
+}
+
+
 
 void kruskal(int n, int m, char E, char F)
 {
