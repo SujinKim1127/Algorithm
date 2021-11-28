@@ -1,4 +1,10 @@
 #include <iostream>
+#include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <algorithm>
+#include <queue>
 using namespace std;
 
 typedef int index;
@@ -64,9 +70,20 @@ void initial(int n)
 }
 
 
-void dijkstra(int n, const int W[10][10])
+void dijkstra(int n, const int W[10][10], Edge f)
 {
     index i, vnear;
+
+    vector<Edge> e;
+    e.push_back(Edge(1,2,7));
+    e.push_back(Edge(1,3,4));
+    e.push_back(Edge(1,4,6));
+    e.push_back(Edge(1,5,1));
+    e.push_back(Edge(3,2,2));
+    e.push_back(Edge(3,4,5));
+    e.push_back(Edge(4,2,3));
+    e.push_back(Edge(5,4,1));
+
     index touch[n];
     index length[n];
 
@@ -76,9 +93,28 @@ void dijkstra(int n, const int W[10][10])
         length[i] = W[1][i];
     }
 
-    while((n-1)--)
+    while(n - 1 > 0)
     {
-        
+        string min = "infinite";
+        n--;
+        for(i = 2; i <= n; i++)
+        {
+            if(0 <= length[i] <= sizeof(min))
+            {
+                min = length[i];
+                vnear = i;
+            }
+
+        }
+
+        F.push(e[cnt].weight);
+
     }
+
+}
+
+int main()
+{
+    queue<int> F;
 
 }
