@@ -8,113 +8,64 @@
 using namespace std;
 
 typedef int index;
-typedef index set_pointer;
 
-struct nodetype {
-	int depth;
-    index parent;
-};
-
-typedef nodetype universe[10];
-
-universe U;
-
-
-class Edge
-{
-public:
-    int node[2];
-    int weight;
-    Edge(int a, int b, int weight)
-    {
-        this->node[0] = a;
-        this->node[1] = b;
-        this->weight = weight;
-    }
-    bool operator<(Edge &edge)
-    {
-        return this->weight < edge.weight;
-    }
-
-};
-
-
-set_pointer find (index i)
-{
-    index j;
-    j = i;
-    while(U[j].parent != j)
-        j = U[j].parent;
-    return j;
-}
-
-bool equal(set_pointer p, set_pointer q)
-{
-    if(p == q)
-        return true;
-    else
-        return false;
-}
-
-void makeset(index i)
-{
-    U[i].parent = i;
-    U[i].depth = 0;
-}
-
-void initial(int n)
-{
-    index i;
-    for(i = 1; i <= n; i++)
-        makeset(i);
-}
-
-
-void dijkstra(int n, const int W[10][10], Edge f)
+int INF = 100000;
+void dijkstra(int n, const int W[6][6],  queue<int> F)
 {
     index i, vnear;
-
-    vector<Edge> e;
-    e.push_back(Edge(1,2,7));
-    e.push_back(Edge(1,3,4));
-    e.push_back(Edge(1,4,6));
-    e.push_back(Edge(1,5,1));
-    e.push_back(Edge(3,2,2));
-    e.push_back(Edge(3,4,5));
-    e.push_back(Edge(4,2,3));
-    e.push_back(Edge(5,4,1));
-
     index touch[n];
     index length[n];
 
+    // initial
     for(i = 2; i <= n; i++)
     {
         touch[i] = 1;
         length[i] = W[1][i];
     }
-
-    while(n - 1 > 0)
+    int cnt=n;
+    while(cnt - 1 > 0)
     {
-        string min = "infinite";
-        n--;
+        int min = INF;
         for(i = 2; i <= n; i++)
         {
-            if(0 <= length[i] <= sizeof(min))
+            // find the vertex number 
+            if(0 <= length[i] < min && length[i] != -1)
             {
                 min = length[i];
                 vnear = i;
             }
-
         }
 
-        F.push(e[cnt].weight);
-
+        // e = edge from vertex indexed by touch[vnear] to vertex indexed by vnear
+        F.push(W[touch[vnear]][vnear]);
+        cout << "F: " << F.front() << endl;
+        F.pop(); 
+        for(i = 2; i <= n; i++)
+        {
+            if(length[vnear] + W[vnear][i] < length[i])
+            {
+                length[i] = length[vnear] + W[vnear][i];
+                touch[i] = vnear;
+            }
+        }
+        length[vnear] = -1;
+        
+        cnt--;
     }
-
 }
 
 int main()
 {
+    int W[6][6]={
+        {0, 0, 0, 0, 0, 0},
+        {0, 0, 7, 4, 6, 1},
+        {0, INF, 0, INF, INF, INF},
+        {0, INF, 2, 0, 5, INF},
+        {0, INF, 3, INF, 0, INF},
+        {0, INF, INF, INF, 1, 0}
+    };
+
     queue<int> F;
+    dijkstra(5, W, F);
 
 }
