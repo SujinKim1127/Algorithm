@@ -15,10 +15,10 @@ int numbest = 0;
 
 
 // input
-int n = 5;
-int W = 20;
-int w[6] = {0, 3, 3, 8, 5, 6};
-int p[6] = {0, 60, 30, 40, 20, 18};
+int n = 4;
+int W = 12;
+int w[5] = {0, 3, 3, 8, 5};
+int p[5] = {0, 60, 30, 40, 20};
 string include[6], bestset[6];
 
 bool promising(index i, int wweight)
@@ -44,12 +44,14 @@ bool promising(index i, int wweight)
         {
             bound = bound + (W - totweight) * p[k] / w[k];
         }
-        cout<<"K: "<<k<<endl;
 		cout << "profit: " << profit << ",\tweight: " << wweight << ",\tbound: " << bound << endl;
 		cout << "maxprofit: " << maxprofit << ",\ttotweight: " << totweight << endl<<endl;
 
-        if (bound > maxprofit) return true;
-		else return false;
+        if (bound > maxprofit) 
+            return true;
+
+		else    // bound <= maxprofit 
+            return false;
 
     }
 }
@@ -86,6 +88,7 @@ int main()
 		cout << i << ": \t" << p[i] << "\t" << w[i] << "\t" << endl;
 
     knapsack(0, 0, 0);
+    cout << "bestset: ";
     for(int i = 1; i <= n; i++)
         cout<<bestset[i]<<" ";
 }
