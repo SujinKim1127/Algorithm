@@ -126,7 +126,7 @@ void kruskal(int n, int m, queue<int> F)
 
         if(!equal(p, q))
         {
-            merge(p, q);
+            merge(i, j);
             F.push(e[cnt].weight);
 
             cout<<"\t F: "<<F.front()<<endl;

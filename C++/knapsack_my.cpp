@@ -15,10 +15,10 @@ int numbest = 0;
 
 
 // input
-int n = 5;
-int W = 18;
-int p[6] = {0, 40,30,50,12,10};
-int w[6] = {0, 2,5,10,3,5};
+int n = 4;
+int W = 12;
+int p[5] = {0, 60,30,40,20};
+int w[5] = {0, 3,3,8,5};
 string include[6], bestset[6];
 
 bool promising(index i, int wweight)
