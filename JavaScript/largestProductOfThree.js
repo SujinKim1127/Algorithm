@@ -3,6 +3,15 @@
  * 곱해 나올 수 있는 최대값을 리턴
  */
 
+ const largestProductOfThree_short = function (arr) {
+    var srt = arr.sort(function(a,b) {return a - b});
+    var lgth = arr.length;
+    var head = srt[0] * srt[1] * srt[lgth-1];  // 음수일수도 있으므로
+    var tail = srt[lgth - 1] * srt[lgth - 2] * srt[lgth - 3];   // 맨마지막 3개
+    return Math.max(head, tail);
+  };
+  
+
 const largestProductOfThree = function (arr) {
     var max = arr[0] * arr[1] * arr[2];
     // 길이만큼 for문 돌리고
