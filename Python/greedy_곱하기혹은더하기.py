@@ -9,3 +9,5 @@ for i in range(len(n)):
         result *= n[i]
 
 print(result)
+
+## 1일때는 더해줘야한다는 생각 못함
