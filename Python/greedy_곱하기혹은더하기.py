@@ -4,8 +4,9 @@ n = list(map(int, n))
 
 result = 1
 for i in range(len(n)):
-    print(n[i])
-    if n[i] != 0:
+    if n[i] <= 1 or result <= 1:
+        result += n[i]
+    else:
         result *= n[i]
 
 print(result)

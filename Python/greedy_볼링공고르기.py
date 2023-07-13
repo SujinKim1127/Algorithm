@@ -25,7 +25,8 @@ for x in weight:
 cnt = 0
 
 for i in range(1, m + 1):
+    # 제일 작은 공부터
     n -= arr[i]
-    cnt += arr[i] * n
+    cnt += arr[i] * n   # 해당 공이 가질 수 있는 경우의 수
 
 print(cnt)
