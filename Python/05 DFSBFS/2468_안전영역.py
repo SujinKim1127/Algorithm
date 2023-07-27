@@ -1,8 +1,12 @@
-n = int(input())
+import sys
+sys.setrecursionlimit(100000)
+r = sys.stdin.readline
+
+n = int(r())
 
 graph = []
 for _ in range(n):
-    graph.append(list(map(int, input().split())))
+    graph.append(list(map(int, r().split())))
 
 small = min(map(min,graph))
 big = max(map(max,graph))
