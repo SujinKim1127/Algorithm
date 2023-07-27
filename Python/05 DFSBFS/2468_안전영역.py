@@ -7,43 +7,33 @@ for _ in range(n):
 small = min(map(min,graph))
 big = max(map(max,graph))
 
-# 높이별 체크
-def check(graph, h):
-    visit = [[1] * n for _ in range(n)]
-    for i in range(n):
-        for j in range(n):
-            if graph[i][j] > h:
-                visit[i][j] = 0
-    return visit
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
 
+def dfs(x, y, h):
+    # 현재 위치 상하좌우로 재귀
+    for m in range(4):
+        nx = x + dx[m]
+        ny = y + dy[m]
+        
+        # 주어진 범위를 넘어가면 종료     방문안한경우         높이보다 높은 영역만
+        if 0 <= nx < n and 0 <= ny < n and not visit[nx][ny] and graph[nx][ny] > h:
+            visit[nx][ny] = True    # 노드 방문 처리
+            dfs(nx, ny, h)
 
-def dfs(height, x, y, h):
-    # 주어진 범위를 넘어가면 종료
-    if x <= -1 or x >= n or y <= -1 or y >= n:
-        return False
-    
-    # 현재 노드를 방문안한 경우
-    if height[x][y] == 0 :
-        # 해당 노드 방문 처리
-        height[x][y] = 1
-        # 상하좌우 위치재귀로 호출
-        dfs(height, x-1, y, h)
-        dfs(height, x, y - 1, h)
-        dfs(height, x + 1, y, h)
-        dfs(height, x, y + 1, h)
-        return True
-    return False
-
-result = [0] * big
+result = 1
 
 for h in range(big):
-    print("height", h)
-    height = check(graph, h)
+    visit = [[False] * n for _ in range(n)]
+    count = 0
     for i in range(n):
         for j in range(n):
-            # 현재 위치에서 DFS 수행
-            if dfs(height, i, j, h) == True:
-                result[h] += 1
+            if graph[i][j] > h and not visit[i][j]:
+                count += 1
+                visit[i][j] = True
+                dfs(i, j, h)        # 현재 위치에서 DFS 수행
     
-print(max(result))
+    result = max(result, count)
+    
+print(result)
 
