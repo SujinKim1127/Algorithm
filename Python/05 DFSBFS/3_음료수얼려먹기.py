@@ -5,14 +5,10 @@ for i in range(n):
     graph.append(list(map(int, input())))
 
 def dfs(x, y):
-    print("X",x,"Y", y)
     # 주어진 범위를 넘어가면 즉시 종료
     if x <= -1 or x >= n or y <= -1 or y >= m:
         return False
     
-    for i in range(0, n):
-        print(graph[i])
-
     # 현재 노드를 방문안한 경우
     if graph[x][y] == 0 :
         # 해당 노드 방문 처리
