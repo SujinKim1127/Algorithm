@@ -18,3 +18,32 @@ def DFS(v):
 
 DFS(1)
 print(sum(visited) - 1)
+
+from collections import deque
+
+n = int(input())
+net = int(input())
+
+visited = [False] * (n+1)
+graph = [[] for _ in range(n+1)]
+
+for _ in range(net):
+    x, y = map(int, input().split())
+    graph[x].append(y)
+    graph[y].append(x)
+
+def BFS(x):
+    q = deque()
+    q.append(x)
+    visited[x]=True
+    result = 0
+    while q:
+        v = q.popleft()
+        for i in graph[v]:
+            if not visited[i]:
+                q.append(i)
+                visited[i] = True
+                result += 1
+    return result
+
+print(BFS(1))
