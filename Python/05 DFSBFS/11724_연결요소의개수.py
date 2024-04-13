@@ -11,7 +11,27 @@ for _ in range(m):
     graph[x].append(y)
     graph[y].append(x)
 
+from collections import deque
+
 cnt = 0
+
+def BFS(v):
+    queue = deque()
+    queue.append(v)
+    visited[v] = True
+    while queue:
+        x = queue.popleft()
+        for i in graph[x]:
+            if not visited[i]:
+                queue.append(i)
+                visited[i] = True
+
+for i in range(1, n+1):
+    if not visited[i]:
+        BFS(i)
+        cnt += 1
+
+print(cnt)
 
 def DFS(graph, v, visited):
     visited[v] = True
