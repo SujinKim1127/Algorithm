@@ -5,7 +5,7 @@ input = sys.stdin.readline
 n, m = map(int, input().split())
 graph = []
 
-for _ in range(n):
+for _ in range(m):
     graph.append(list(input()))
 
 dx = [-1, 1, 0 , 0]
@@ -25,7 +25,7 @@ def BFS(a, b):
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if (0 <= nx < n) and (0 <= ny < m) and graph[nx][ny] == cur:
+            if (0 <= nx < m) and (0 <= ny < n) and graph[nx][ny] == cur:
                 
                 queue.append([nx, ny])
                 graph[nx][ny] = -1
@@ -34,15 +34,14 @@ def BFS(a, b):
 w = 0
 b = 0
 
-for i in range(n):
-    for j in range(m):
+for i in range(m):
+    for j in range(n):
         if graph[i][j] == "W":
             w += (BFS(i, j))**2
         if graph[i][j] == "B":
             b += (BFS(i, j)) ** 2
 
-print(w)
-print(b)
+print(w, b)
 
             
             
