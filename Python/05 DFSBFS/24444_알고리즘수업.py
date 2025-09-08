@@ -3,27 +3,30 @@ import sys
 input = sys.stdin.readline
 
 n, m, r = map(int, input().split())
-graph = [[] for _ in range(n+1)]
+graph = [[] for _ in range(n+1) ]
 visited = [0] * (n + 1)
 visited[r] = 1
-q = deque([r])
-for _ in range(m):
-  a, b = map(int, input().split())
-  graph[a].append(b)
-  graph[b].append(a)
 
-# 내림차순 정렬
+for _ in range(m):
+  u, v = map(int, input().split())
+  graph[u].append(v)
+  graph[v].append(u)
+
+queue = deque([r])
+
+# 오름차순 정렬
 for i in range(1, n+ 1):
-  graph[i].sort(reverse=True)
+  graph[i].sort()
+
 
 turn = 1
 
-while q:
-  v = q.popleft()
+while queue:
+  v = queue.popleft()
   for i in graph[v]:
     if visited[i]: continue
     turn += 1
     visited[i] = turn
-    q.append(i)
+    queue.append(i)
 
 print(*visited[1:], sep="\n")
