@@ -24,17 +24,22 @@ class Solution:
 
     # 더 빠른 풀이
     def isValid(self, s: str) -> bool:
-        stack = []
         pairs = {
-            "}":"{",
+            "}": "{",
             ")":"(",
-            "]":"["
+            "]":"[",
         }
 
-        for c in s:
-            if c in pairs:
-                if not stack or stack.pop() != pairs[c]: return False
-            else: stack.append(c)
+        stack = []
+        for char in s:
+            # 닫힌 괄호일때
+            if char in pairs:
+                # 빈값에 닫힌 괄호 들어가거나 닫힌괄호의 짝이 없을때
+                if not stack or stack.pop() != pairs[char]:
+                    return False
+            # 열린 괄호이면 append
+            else:
+                stack.append(char)
         
-        print(stack)
+        # stack에는 빈값만 있어야함
         return not stack
