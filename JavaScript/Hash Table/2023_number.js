@@ -28,3 +28,30 @@ var numOfPairs = function (nums, target) {
   }
   return ans;
 };
+
+/**
+ * @param {string[]} nums
+ * @param {string} target
+ * @return {number}
+ */
+var numOfPairs = function (nums, target) {
+  let count = 0,
+    m = target.length;
+  let dict = new Map();
+
+  for (let num of nums) {
+    let n = num.length;
+    if (n >= m) continue;
+    // slice 앞부분
+    if (target.slice(0, n) === num) count += dict.get(target.slice(n)) || 0;
+    // slice 뒷부분
+    if (target.slice(m - n) === num)
+      count += dict.get(target.slice(0, m - n)) || 0;
+
+    dict.set(num, (dict.get(num) || 0) + 1);
+
+    // console.log(dict)
+  }
+
+  return count;
+};
